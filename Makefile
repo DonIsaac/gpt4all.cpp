@@ -30,9 +30,15 @@ endif
 # Compile flags
 #
 
+ifdef DEBUG
+CFLAGS   = -I.              -g3 -std=c11   -fPIC
+CXXFLAGS = -I. -I./examples -g3 -std=c++11 -fPIC
+LDFLAGS  =
+else
 CFLAGS   = -I.              -O3 -DNDEBUG -std=c11   -fPIC
 CXXFLAGS = -I. -I./examples -O3 -DNDEBUG -std=c++11 -fPIC
 LDFLAGS  =
+endif
 
 # OS specific
 # TODO: support Windows
