@@ -136,10 +136,10 @@ typedef double ggml_float;
 //
 #include <arm_neon.h>
 
-#define GGML_COMPUTE_FP16_TO_FP32(x) (x)
+#define GGML_COMPUTE_FP16_TO_FP32(x) ((float)x)
 #define GGML_COMPUTE_FP32_TO_FP16(x) (x)
 
-#define GGML_FP16_TO_FP32(x) (x)
+#define GGML_FP16_TO_FP32(x) ((float)x)
 #define GGML_FP32_TO_FP16(x) (x)
 
 #else
@@ -433,7 +433,7 @@ void quantize_row_q4_0(const float * restrict x, void * restrict y, int k) {
                 MAX(vgetq_lane_f32(amaxv[0], 2), vgetq_lane_f32(amaxv[0], 3)));
 
         const float d = amax / ((1 << 3) - 1);
-        const float id = d ? 1.0/d : 0.0;
+        const float id = d ? 1.0f/d : 0.0f;
 
         *(float *)pd = d;
         pd += bs;
@@ -545,7 +545,7 @@ void quantize_row_q4_0(const float * restrict x, void * restrict y, int k) {
                 MAX(wasm_f32x4_extract_lane(amaxv[0], 2), wasm_f32x4_extract_lane(amaxv[0], 3)));
 
         const float d = amax / ((1 << 3) - 1);
-        const float id = d ? 1.0/d : 0.0;
+        const float id = d ? 1.0f/d : 0.0f;
 
         *(float *)pd = d;
         pd += bs;
@@ -1307,7 +1307,7 @@ inline static void ggml_vec_dot_q4_0(const int n, float * restrict s, const void
     const uint8_t * restrict pb0 = ((const uint8_t *)x + 0*bs + sizeof(float));
     const uint8_t * restrict pb1 = ((const uint8_t *)y + 0*bs + sizeof(float));
 
-    float sumf = 0.0;
+    float sumf = 0.0f;
 
 #ifdef __ARM_NEON
 #if QK == 32
@@ -1593,7 +1593,7 @@ inline static void ggml_vec_dot_q4_1(const int n, float * restrict s, const void
     const uint8_t * restrict pb0 = (const uint8_t *) (pd0 + nb);
     const uint8_t * restrict pb1 = (const uint8_t *) (pd1 + nb);
 
-    float sumf = 0.0;
+    float sumf = 0.0f;
 
 #if 1
     // scalar
@@ -5491,7 +5491,7 @@ static void ggml_compute_forward_rms_norm_f32(
                 //     y[i00] = x[i00];
                 // }
 
-                const float scale = 1.0/sqrt(mean + eps);
+                const float scale = 1.0f/sqrtf(mean + eps);
 
                 ggml_vec_scale_f32(ne00, y, scale);
             }
@@ -10336,7 +10336,7 @@ static enum ggml_opt_result ggml_opt_lbfgs(
         GGML_PRINT_DEBUG("f = %10.6f\n", ggml_get_f32_1d(f, 0));
 
         if (xnorm < 1.0) {
-            xnorm = 1.0;
+            xnorm = 1.0f;
         }
         if (gnorm/xnorm <= params.lbfgs.eps) {
             // converged
@@ -10423,7 +10423,7 @@ static enum ggml_opt_result ggml_opt_lbfgs(
             j = (j + 1)%m;
         }
 
-        step = 1.0;
+        step = 1.0f;
     }
 
     return GGML_OPT_DID_NOT_CONVERGE;
