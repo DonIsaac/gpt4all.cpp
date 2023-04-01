@@ -130,16 +130,18 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         n_ff = ((2*(4*hparams.n_embd)/3 + hparams.n_mult - 1)/hparams.n_mult)*hparams.n_mult;
         n_parts = LLAMA_N_PARTS.at(hparams.n_embd);
 
-        // fprintf(stderr, "%s: n_vocab = %d\n", __func__, hparams.n_vocab);
-        // fprintf(stderr, "%s: n_ctx   = %d\n", __func__, hparams.n_ctx);
-        // fprintf(stderr, "%s: n_embd  = %d\n", __func__, hparams.n_embd);
-        // fprintf(stderr, "%s: n_mult  = %d\n", __func__, hparams.n_mult);
-        // fprintf(stderr, "%s: n_head  = %d\n", __func__, hparams.n_head);
-        // fprintf(stderr, "%s: n_layer = %d\n", __func__, hparams.n_layer);
-        // fprintf(stderr, "%s: n_rot   = %d\n", __func__, hparams.n_rot);
-        // fprintf(stderr, "%s: f16     = %d\n", __func__, hparams.f16);
-        // fprintf(stderr, "%s: n_ff    = %d\n", __func__, n_ff);
-        // fprintf(stderr, "%s: n_parts = %d\n", __func__, n_parts);
+        #ifdef DEBUG
+        fprintf(stderr, "%s: n_vocab = %d (0x%x)\n", __func__, hparams.n_vocab, hparams.n_vocab);
+        fprintf(stderr, "%s: n_ctx   = %d (0x%x)\n", __func__, hparams.n_ctx, hparams.n_ctx);
+        fprintf(stderr, "%s: n_embd  = %d (0x%x)\n", __func__, hparams.n_embd, hparams.n_embd);
+        fprintf(stderr, "%s: n_mult  = %d (0x%x)\n", __func__, hparams.n_mult, hparams.n_mult);
+        fprintf(stderr, "%s: n_head  = %d (0x%x)\n", __func__, hparams.n_head, hparams.n_head);
+        fprintf(stderr, "%s: n_layer = %d (0x%x)\n", __func__, hparams.n_layer, hparams.n_layer);
+        fprintf(stderr, "%s: n_rot   = %d (0x%x)\n", __func__, hparams.n_rot, hparams.n_rot);
+        fprintf(stderr, "%s: f16     = %d (0x%x)\n", __func__, hparams.f16, hparams.f16);
+        fprintf(stderr, "%s: n_ff    = %d (0x%x)\n", __func__, n_ff, n_ff);
+        fprintf(stderr, "%s: n_parts = %d (0x%x)\n", __func__, n_parts, n_parts);
+        #endif
     }
 
     // load vocab

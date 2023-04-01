@@ -31,8 +31,8 @@ endif
 #
 
 ifdef DEBUG
-CFLAGS   = -I.              -g3 -std=c11   -fPIC
-CXXFLAGS = -I. -I./examples -g3 -std=c++11 -fPIC
+CFLAGS   = -I.              -g3 -DDEBUG -std=c11   -fPIC
+CXXFLAGS = -I. -I./examples -g3 -DDEBUG -std=c++11 -fPIC
 LDFLAGS  =
 else
 CFLAGS   = -I.              -O3 -DNDEBUG -std=c11   -fPIC
