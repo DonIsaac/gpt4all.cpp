@@ -8,6 +8,14 @@
 #include <random>
 #include <thread>
 
+#ifdef DEBUG
+// fprintf to stderr with var args if DEBUG is defined
+#define debug(fmt, ...) fprintf(stderr, fmt __VA_OPT__(,) __VA_ARGS__)
+#else
+// fprintf to stderr with var args if DEBUG is defined
+#define debug(fmt, ...)
+#endif
+
 //
 // CLI argument parsing
 //

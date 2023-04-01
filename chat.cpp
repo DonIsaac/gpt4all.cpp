@@ -1,3 +1,4 @@
+#include "chat.h"
 #include "ggml.h"
 
 #include "utils.h"
@@ -19,74 +20,12 @@
 #include <Windows.h>
 #endif
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-#define ANSI_BOLD          "\x1b[1m"
-
-// determine number of model parts based on the dimension
-static const std::map<int, int> LLAMA_N_PARTS = {
-    { 4096, 1 },
-    { 5120, 1 },
-    { 6656, 1 },
-    { 8192, 1 },
-};
-
-// default hparams (LLaMA 7B)
-struct llama_hparams {
-    int32_t n_vocab = 32001;
-    int32_t n_ctx   = 512;   // this is provided as user input?
-    int32_t n_embd  = 4096;
-    int32_t n_mult  = 256;
-    int32_t n_head  = 32;
-    int32_t n_layer = 32;
-    int32_t n_rot   = 64;
-    int32_t f16     = 1;
-};
-
-struct llama_layer {
-    // normalization
-    struct ggml_tensor * attention_norm;
-
-    // attention
-    struct ggml_tensor * wq;
-    struct ggml_tensor * wk;
-    struct ggml_tensor * wv;
-    struct ggml_tensor * wo;
-
-    // normalization
-    struct ggml_tensor * ffn_norm;
-
-    // ff
-    struct ggml_tensor * w1;
-    struct ggml_tensor * w2;
-    struct ggml_tensor * w3;
-};
-
-struct llama_model {
-    llama_hparams hparams;
-
-    struct ggml_tensor * tok_embeddings;
-
-    struct ggml_tensor * norm;
-    struct ggml_tensor * output;
-
-    std::vector<llama_layer> layers;
-
-    // key + value memory
-    struct ggml_tensor * memory_k;
-    struct ggml_tensor * memory_v;
-
-    //
-    struct ggml_context * ctx;
-    std::map<std::string, struct ggml_tensor *> tensors;
-};
 
 // load the model's weights from a file
+// @param fname - path to the model file
+// @param model - model to load. Where the weights are stored
+// @param vocab - vocabulary to load. Where the vocabulary is stored
+// @param n_ctx - context size
 bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab & vocab, int n_ctx) {
     fprintf(stderr, "%s: loading model from '%s' - please wait ...\n", __func__, fname.c_str());
 
@@ -103,7 +42,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
     {
         uint32_t magic;
         fin.read((char *) &magic, sizeof(magic));
-        if (magic != 0x67676d6c) {
+        if (magic != MAGIC_VERSION_NUMBER) {
             fprintf(stderr, "%s: invalid model file '%s' (bad magic)\n", __func__, fname.c_str());
             return false;
         }
@@ -123,25 +62,23 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         fin.read((char *) &hparams.n_head,  sizeof(hparams.n_head));
         fin.read((char *) &hparams.n_layer, sizeof(hparams.n_layer));
         fin.read((char *) &hparams.n_rot,   sizeof(hparams.n_rot));
-        fin.read((char *) &hparams.f16,     sizeof(hparams.f16));
+        fin.read((char *) &hparams.f16,     sizeof(hparams.f16)); // this is ftype
 
-        hparams.n_ctx = n_ctx;
+        hparams.n_ctx = n_ctx; // no longer in model, this is a cli arg
 
         n_ff = ((2*(4*hparams.n_embd)/3 + hparams.n_mult - 1)/hparams.n_mult)*hparams.n_mult;
         n_parts = LLAMA_N_PARTS.at(hparams.n_embd);
 
-        #ifdef DEBUG
-        fprintf(stderr, "%s: n_vocab = %d (0x%x)\n", __func__, hparams.n_vocab, hparams.n_vocab);
-        fprintf(stderr, "%s: n_ctx   = %d (0x%x)\n", __func__, hparams.n_ctx, hparams.n_ctx);
-        fprintf(stderr, "%s: n_embd  = %d (0x%x)\n", __func__, hparams.n_embd, hparams.n_embd);
-        fprintf(stderr, "%s: n_mult  = %d (0x%x)\n", __func__, hparams.n_mult, hparams.n_mult);
-        fprintf(stderr, "%s: n_head  = %d (0x%x)\n", __func__, hparams.n_head, hparams.n_head);
-        fprintf(stderr, "%s: n_layer = %d (0x%x)\n", __func__, hparams.n_layer, hparams.n_layer);
-        fprintf(stderr, "%s: n_rot   = %d (0x%x)\n", __func__, hparams.n_rot, hparams.n_rot);
-        fprintf(stderr, "%s: f16     = %d (0x%x)\n", __func__, hparams.f16, hparams.f16);
-        fprintf(stderr, "%s: n_ff    = %d (0x%x)\n", __func__, n_ff, n_ff);
-        fprintf(stderr, "%s: n_parts = %d (0x%x)\n", __func__, n_parts, n_parts);
-        #endif
+        debug("n_vocab = %d (0x%x)\n", hparams.n_vocab, hparams.n_vocab);
+        debug("n_ctx   = %d (0x%x)\n", hparams.n_ctx, hparams.n_ctx);
+        debug("n_embd  = %d (0x%x)\n", hparams.n_embd, hparams.n_embd);
+        debug("n_mult  = %d (0x%x)\n", hparams.n_mult, hparams.n_mult);
+        debug("n_head  = %d (0x%x)\n", hparams.n_head, hparams.n_head);
+        debug("n_layer = %d (0x%x)\n", hparams.n_layer, hparams.n_layer);
+        debug("n_rot   = %d (0x%x)\n", hparams.n_rot, hparams.n_rot);
+        debug("f16     = %d (0x%x)\n", hparams.f16, hparams.f16);
+        debug("n_ff    = %d (0x%x)\n", n_ff, n_ff);
+        debug("n_parts = %d (0x%x)\n", n_parts, n_parts);
     }
 
     // load vocab
@@ -155,12 +92,14 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         }
 
         std::string word;
+        debug("[%s] loading vocab...\n", __func__);
         for (int i = 0; i < n_vocab - 1; i++) {
             uint32_t len;
             fin.read((char *) &len, sizeof(len));
 
             word.resize(len);
             fin.read((char *) word.data(), len);
+            debug("%d: (%d) %s\n", i, len, word.c_str());
 
             vocab.token_to_id[word] = i;
             vocab.id_to_token[i] = word;
@@ -171,6 +110,12 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         }
         vocab.token_to_id["<pad>"] = n_vocab - 1;
         vocab.id_to_token[n_vocab - 1] = "<pad>";
+        // for (int i = 0; i < n_vocab; i++) {
+        //     debug("%d: '%s'", i, vocab.id_to_token[i].c_str());
+        //     if (i % 32 == 0) {
+        //         debug("\n");
+        //     }
+        // }
     }
 
     // for the big tensors, we have the option to store the data in 16-bit floats or quantized
@@ -193,6 +138,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
     auto & ctx = model.ctx;
 
+    debug("[%s] determining context size...\n", __func__);
     size_t ctx_size = 0;
 
     {
@@ -317,11 +263,11 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         fprintf(stderr, "%s: memory_size = %8.2f MB, n_mem = %d\n", __func__, memory_size/1024.0/1024.0, n_mem);
     }
 
-    const size_t file_offset = fin.tellg();
+    const size_t file_offset = fin.tellg(); // https://cplusplus.com/reference/istream/istream/tellg/
 
     fin.close();
 
-    std::vector<uint8_t> tmp;
+    std::vector<uint8_t> tmp; // is this used?
     
     for (int i = 0; i < n_parts; ++i) {
         const int part_id = i;
@@ -331,12 +277,16 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         if (i > 0) {
             fname_part += "." + std::to_string(i);
         }
+        debug("[%s] loading part from file: %s\n", __func__, fname_part.c_str());
 
         fprintf(stderr, "%s: loading model part %d/%d from '%s'\n", __func__, i+1, n_parts, fname_part.c_str());
 
         fin = std::ifstream(fname_part, std::ios::binary);
-        fin.rdbuf()->pubsetbuf(f_buf.data(), f_buf.size());
-        fin.seekg(file_offset);
+        // if (i == 0) {
+            // debug("[%s] seeking to offset %d (location after frontmatter)", file_offset);
+            fin.rdbuf()->pubsetbuf(f_buf.data(), f_buf.size());
+            fin.seekg(file_offset);
+        // }
 
         // load weights
         {
@@ -345,9 +295,15 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
             fprintf(stderr, "%s: ", __func__);
 
+            /*
+             <n_dim><length><ftype>
+             <dim_1><dim_2>...<dim_n_dims>
+             <...name (has `length` chars)>
+             <weights, stored in either row-major or column-major format>
+            */
             while (true) {
-                int32_t n_dims;
-                int32_t length;
+                int32_t n_dims; // number of dimensions
+                int32_t length; // length of part name
                 int32_t ftype;
 
                 fin.read(reinterpret_cast<char *>(&n_dims), sizeof(n_dims));
@@ -355,15 +311,21 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                 fin.read(reinterpret_cast<char *>(&ftype),  sizeof(ftype));
 
                 if (fin.eof()) {
+                    debug("[%s] end of file reached, stopping model loading", __func__);
                     break;
                 }
 
                 int32_t nelements = 1;
+                // number of elements, e.g. dimensionality
+                // Why is this always 2? ggml supports >= 4...
                 int32_t ne[2] = { 1, 1 };
                 for (int i = 0; i < n_dims; ++i) {
                     fin.read(reinterpret_cast<char *>(&ne[i]), sizeof(ne[i]));
                     nelements *= ne[i];
                 }
+                // debug("here");
+                // debug("tensor has %d dimensions", n_dims);
+                debug("tensor %d has %d dimensions with shape (%d, %d) and contains %d elements", i, n_dims, ne[0], ne[1], nelements);
 
                 std::string name(length, 0);
                 fin.read(&name[0], length);
