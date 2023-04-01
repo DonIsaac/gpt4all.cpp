@@ -8,6 +8,20 @@
 #include <random>
 #include <thread>
 
+#ifdef DEBUG
+
+#ifdef WASM
+#define debug(fmt, ...) fprintf(stdout, fmt __VA_OPT__(,) __VA_ARGS__)
+#else
+#define debug(fmt, ...) fprintf(stderr, fmt __VA_OPT__(,) __VA_ARGS__)
+#endif
+
+#else
+
+#define debug(fmt, ...) ((void)0)
+
+#endif
+
 //
 // CLI argument parsing
 //

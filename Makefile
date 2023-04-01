@@ -26,18 +26,13 @@ ifeq ($(UNAME_S),Darwin)
 	endif
 endif
 
-ifdef WASM
-	CC = emcc
-	CXX = em++
-	LLAMA_NO_ACCELERATE = 1
-endif
 #
 # Compile flags
 #
 
 ifdef DEBUG
-CFLAGS   = -I.              -g3 -std=c11   -fPIC -D_POSIX_C_SOURCE=199309L
-CXXFLAGS = -I. -I./examples -g3 -std=c++11 -fPIC -D_POSIX_C_SOURCE=199309L
+CFLAGS   = -I.              -g3 -std=c11   -fPIC -D_POSIX_C_SOURCE=199309L -DDEBUG
+CXXFLAGS = -I. -I./examples -g3 -std=c++11 -fPIC -D_POSIX_C_SOURCE=199309L -DDEBUG
 LDFLAGS  =
 
 ifdef WASM
@@ -46,11 +41,18 @@ CXXFLAGS += -gsource-map --source-map-base=./ -sALLOW_MEMORY_GROWTH
 endif 
 
 else
-CFLAGS   = -I.              -O3 -DNDEBUG -std=c11   -fPIC
-CXXFLAGS = -I. -I./examples -O3 -DNDEBUG -std=c++11 -fPIC
+CFLAGS   = -I.              -O3 -DNDEBUG -std=c11   -fPIC -D_POSIX_C_SOURCE=199309L
+CXXFLAGS = -I. -I./examples -O3 -DNDEBUG -std=c++11 -fPIC -D_POSIX_C_SOURCE=199309L
 LDFLAGS  =
 endif
 
+ifdef WASM
+CC = emcc
+CXX = em++
+LLAMA_NO_ACCELERATE = 1
+CFLAGS += -DWASM
+CXXFLAGS += -DWASM
+endif
 
 # OS specific
 # TODO: support Windows

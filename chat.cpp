@@ -28,6 +28,8 @@
 #define ANSI_COLOR_RESET   "\x1b[0m"
 #define ANSI_BOLD          "\x1b[1m"
 
+// #define ENABLE_NORM_F16_HACK 1
+
 // determine number of model parts based on the dimension
 static const std::map<int, int> LLAMA_N_PARTS = {
     { 4096, 1 },
@@ -114,6 +116,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
     // load hparams
     {
+        printf("reading hparams\n");
         auto & hparams = model.hparams;
 
         fin.read((char *) &hparams.n_vocab, sizeof(hparams.n_vocab));
@@ -140,6 +143,28 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         // fprintf(stderr, "%s: f16     = %d\n", __func__, hparams.f16);
         // fprintf(stderr, "%s: n_ff    = %d\n", __func__, n_ff);
         // fprintf(stderr, "%s: n_parts = %d\n", __func__, n_parts);
+
+        // fprintf(stderr, "%s: n_vocab = %d (%x)\n", __func__, hparams.n_vocab, hparams.n_vocab);
+        // fprintf(stderr, "%s: n_ctx   = %d (%x)\n", __func__, hparams.n_ctx, hparams.n_ctx);
+        // fprintf(stderr, "%s: n_embd  = %d (%x)\n", __func__, hparams.n_embd, hparams.n_embd);
+        // fprintf(stderr, "%s: n_mult  = %d (%x)\n", __func__, hparams.n_mult, hparams.n_mult);
+        // fprintf(stderr, "%s: n_head  = %d (%x)\n", __func__, hparams.n_head, hparams.n_head);
+        // fprintf(stderr, "%s: n_layer = %d (%x)\n", __func__, hparams.n_layer, hparams.n_layer);
+        // fprintf(stderr, "%s: n_rot   = %d (%x)\n", __func__, hparams.n_rot, hparams.n_rot);
+        // fprintf(stderr, "%s: f16     = %d (%x)\n", __func__, hparams.f16, hparams.f16);
+        // fprintf(stderr, "%s: n_ff    = %d (%x)\n", __func__, n_ff, n_ff);
+        // fprintf(stderr, "%s: n_parts = %d (%x)\n", __func__, n_parts,
+        // n_parts);
+        debug("%s: n_vocab = %d (%x)\n", __func__, hparams.n_vocab, hparams.n_vocab);
+        debug("%s: n_ctx   = %d (%x)\n", __func__, hparams.n_ctx, hparams.n_ctx);
+        debug("%s: n_embd  = %d (%x)\n", __func__, hparams.n_embd, hparams.n_embd);
+        debug("%s: n_mult  = %d (%x)\n", __func__, hparams.n_mult, hparams.n_mult);
+        debug("%s: n_head  = %d (%x)\n", __func__, hparams.n_head, hparams.n_head);
+        debug("%s: n_layer = %d (%x)\n", __func__, hparams.n_layer, hparams.n_layer);
+        debug("%s: n_rot   = %d (%x)\n", __func__, hparams.n_rot, hparams.n_rot);
+        debug("%s: f16     = %d (%x)\n", __func__, hparams.f16, hparams.f16);
+        debug("%s: n_ff    = %d (%x)\n", __func__, n_ff, n_ff);
+        debug("%s: n_parts = %d (%x)\n", __func__, n_parts, n_parts);
     }
 
     // load vocab
@@ -150,7 +175,8 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
             fprintf(stderr, "%s: invalid model file '%s' (bad vocab size %d != %d)\n",
                     __func__, fname.c_str(), n_vocab, model.hparams.n_vocab);
             return false;
-        }
+        } 
+        debug("model valid\n");
 
         std::string word;
         for (int i = 0; i < n_vocab - 1; i++) {
@@ -170,6 +196,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         vocab.token_to_id["<pad>"] = n_vocab - 1;
         vocab.id_to_token[n_vocab - 1] = "<pad>";
     }
+    debug("loaded vocab\n");
 
     // for the big tensors, we have the option to store the data in 16-bit floats or quantized
     // in order to save memory and also to speed up the computation
@@ -207,26 +234,53 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
         ctx_size += n_embd*n_vocab*ggml_type_sizef(wtype); // output
 
+        #ifdef ENABLE_NORM_F16_HACK
+        ctx_size += n_layer*(n_embd*ggml_type_sizef(GGML_TYPE_F16)); // attention_norm
+        #else 
         ctx_size += n_layer*(n_embd*ggml_type_sizef(GGML_TYPE_F32)); // attention_norm
+        #endif
 
         ctx_size += n_layer*(n_embd*n_embd*ggml_type_sizef(wtype)); // wq
         ctx_size += n_layer*(n_embd*n_embd*ggml_type_sizef(wtype)); // wk
         ctx_size += n_layer*(n_embd*n_embd*ggml_type_sizef(wtype)); // wv
         ctx_size += n_layer*(n_embd*n_embd*ggml_type_sizef(wtype)); // wo
 
+        #ifdef ENABLE_NORM_F16_HACK
+        ctx_size += n_layer*(n_embd*ggml_type_sizef(GGML_TYPE_F16)); // ffn_norm
+        #else
         ctx_size += n_layer*(n_embd*ggml_type_sizef(GGML_TYPE_F32)); // ffn_norm
+        #endif
 
         ctx_size += n_layer*(n_ff*n_embd*ggml_type_sizef(wtype)); // w1
         ctx_size += n_layer*(n_ff*n_embd*ggml_type_sizef(wtype)); // w2
         ctx_size += n_layer*(n_ff*n_embd*ggml_type_sizef(wtype)); // w3
 
+        #ifdef ENABLE_NORM_F16_HACK
+        ctx_size += n_ctx*n_layer*n_embd*ggml_type_sizef(GGML_TYPE_F16); // memory_k
+        ctx_size += n_ctx*n_layer*n_embd*ggml_type_sizef(GGML_TYPE_F16); // memory_v
+        #else 
         ctx_size += n_ctx*n_layer*n_embd*ggml_type_sizef(GGML_TYPE_F32); // memory_k
         ctx_size += n_ctx*n_layer*n_embd*ggml_type_sizef(GGML_TYPE_F32); // memory_v
+        #endif
 
         ctx_size += (5 + 10*n_layer)*256; // object overhead
 
         fprintf(stderr, "%s: ggml ctx size = %6.2f MB\n", __func__, ctx_size/(1024.0*1024.0));
     }
+
+    debug("ctx_size = %zu\n", ctx_size);
+
+    if (1) {
+        size_t ctx_size_override = (6359980288 * 2) + (2 * (1024 * 1024));
+        debug("overriding ctx_size to %zu\n", ctx_size_override);
+        ctx_size = ctx_size_override;
+    }
+
+    #ifdef WASM
+    // ctx_size += 7140680;
+    #endif
+
+    // ctx_size += 6405992 + 8332;
 
     // create the ggml context
     {
@@ -243,6 +297,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
     }
 
     // prepare memory for the weights
+    debug("%s: preparing memory\n", __func__);
     {
         const auto & hparams = model.hparams;
 
@@ -265,16 +320,25 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         model.tensors["output.weight"] = model.output;
 
         for (int i = 0; i < n_layer; ++i) {
+            debug("allocating layer %d/%d\n", i, n_layer);
             auto & layer = model.layers[i];
 
+            #ifdef ENABLE_NORM_F16_HACK
+            layer.attention_norm = ggml_new_tensor_1d(ctx, GGML_TYPE_F16, n_embd);
+            #else
             layer.attention_norm = ggml_new_tensor_1d(ctx, GGML_TYPE_F32, n_embd);
+            #endif
 
             layer.wq = ggml_new_tensor_2d(ctx, wtype, n_embd, n_embd);
             layer.wk = ggml_new_tensor_2d(ctx, wtype, n_embd, n_embd);
             layer.wv = ggml_new_tensor_2d(ctx, wtype, n_embd, n_embd);
             layer.wo = ggml_new_tensor_2d(ctx, wtype, n_embd, n_embd);
 
+            #ifdef ENABLE_NORM_F16_HACK
+            layer.ffn_norm = ggml_new_tensor_1d(ctx, GGML_TYPE_F16, n_embd);
+            #else 
             layer.ffn_norm = ggml_new_tensor_1d(ctx, GGML_TYPE_F32, n_embd);
+            #endif
 
             layer.w1 = ggml_new_tensor_2d(ctx, wtype, n_embd,   n_ff);
             layer.w2 = ggml_new_tensor_2d(ctx, wtype,   n_ff, n_embd);
@@ -307,8 +371,13 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
         const int n_mem      = n_layer*n_ctx;
         const int n_elements = n_embd*n_mem;
 
+        #ifdef ENABLE_NORM_F16_HACK
+        model.memory_k = ggml_new_tensor_1d(ctx, GGML_TYPE_F16, n_elements);
+        model.memory_v = ggml_new_tensor_1d(ctx, GGML_TYPE_F16, n_elements);
+        #else
         model.memory_k = ggml_new_tensor_1d(ctx, GGML_TYPE_F32, n_elements);
         model.memory_v = ggml_new_tensor_1d(ctx, GGML_TYPE_F32, n_elements);
+        #endif
 
         const size_t memory_size = ggml_nbytes(model.memory_k) + ggml_nbytes(model.memory_v);
 
@@ -363,6 +432,16 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                     nelements *= ne[i];
                 }
 
+                debug(
+                    "loading tensor from part %d with shape %d, %d(n_dims: %d, length: %d, ftype: %d)",
+                    i,
+                    ne[0],
+                    ne[1],
+                    n_dims,
+                    length,
+                    ftype
+                );
+
                 std::string name(length, 0);
                 fin.read(&name[0], length);
 
@@ -402,7 +481,9 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                 } else if (name.find("output") != std::string::npos) {
                     split_type = 1;
                 }
+                debug("split type: %d (0 = col, 1 = row)", split_type);
 
+                // read in tensor weights
                 auto tensor = model.tensors[name.data()];
 
                 if (n_dims == 1) {
@@ -439,12 +520,18 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                     }
                 }
 
-                if (0) {
+                if (1) {
                     static const char * ftype_str[] = { "f32", "f16", "q4_0", "q4_1", };
-                    fprintf(stderr, "%24s - [%5d, %5d], type = %6s, split = %d\n", name.data(), ne[0], ne[1], ftype_str[ftype], split_type);
+                    // fprintf(stderr, "%24s - [%5d, %5d], type = %6s, split = %d\n", name.data(), ne[0], ne[1], ftype_str[ftype], split_type);
+                    debug("%24s - [%5d, %5d], type = %6s, split = %d\n", name.data(), ne[0], ne[1], ftype_str[ftype], split_type);
                 }
 
                 size_t bpe = 0;
+                #ifdef ENABLE_F16_NORM_LAYER_HACK
+                bool is_f16_norm_layer_hack = name.find("norm") && ftype == 0;
+                #else
+                bool is_f16_norm_layer_hack = false;
+                #endif
 
                 switch (ftype) {
                     case 0: bpe = ggml_type_size(GGML_TYPE_F32);  break;
@@ -459,19 +546,65 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                 };
 
                 if (n_dims == 1 || n_parts == 1) {
-                    if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor)) {
-                        fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
-                                __func__, name.data(), ggml_nbytes(tensor), nelements*bpe);
+                    if (is_f16_norm_layer_hack) {
+                        #ifndef ENABLE_F16_NORM_LAYER_HACK
+                        fprintf(stderr, "%s: f16 norm layer hack is disabled, invalid state while loading %s\n", __func__, name.c_str());
                         return false;
-                    }
+                        #endif
+                        if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor) * 2) {
+                            fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
+                                    __func__, name.data(), ggml_nbytes(tensor), nelements*bpe);
+                            return false;
+                        }
 
-                    if (part_id == 0) {
-                        fin.read(reinterpret_cast<char *>(tensor->data), ggml_nbytes(tensor));
+                        if (part_id == 0) {
+                            // load f32s into temp buf, then convert to f16,
+                            // then load into tensor data
+                            // fin.read(reinterpret_cast<char *>(tensor->data),
+                            // ggml_nbytes(tensor));
+                            // ggml_tensor *tmp_tensor =
+                            // ggml_tensor_alloc(ne[0], ne[1], GGML_TYPE_F32);
+                            size_t thicc = 
+                                ggml_type_size(GGML_TYPE_F32) *
+                                ((size_t)ne[0]);
+
+                            void *tmp_tensor = malloc(thicc);
+                            fin.read(reinterpret_cast<char *>(tmp_tensor), thicc);
+                            float *smaller_tmp = (float *)malloc(thicc >> 1); // 32 -> 16
+
+                            for (size_t i = 0; i < thicc; i++) {
+                                size_t j = i * 4; // byte index in byte[] to -> indexing f32[]
+                                float f32 = ((float *)tmp_tensor)[j];
+                                ((ggml_fp16_t *)smaller_tmp)[i] = ggml_fp32_to_fp16(f32);
+                            }
+                            memcpy(tensor->data, smaller_tmp, thicc >> 1);
+                            free(tmp_tensor);
+                            free(smaller_tmp);
+                            // into tmp, read file
+                            // memcpy(tmp_tensor, )
+                            // std::vector<ggm
+                            
+                        } else {
+                            fin.seekg(ggml_nbytes(tensor), std::ios::cur);
+                        }
+
+                        total_size += ggml_nbytes(tensor);
                     } else {
-                        fin.seekg(ggml_nbytes(tensor), std::ios::cur);
-                    }
 
-                    total_size += ggml_nbytes(tensor);
+                        if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor)) {
+                            fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
+                                    __func__, name.data(), ggml_nbytes(tensor), nelements*bpe);
+                            return false;
+                        }
+
+                        if (part_id == 0) {
+                            fin.read(reinterpret_cast<char *>(tensor->data), ggml_nbytes(tensor));
+                        } else {
+                            fin.seekg(ggml_nbytes(tensor), std::ios::cur);
+                        }
+
+                        total_size += ggml_nbytes(tensor);
+                    }
                 } else {
                     if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor)/n_parts) {
                         fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
@@ -825,7 +958,12 @@ int main(int argc, char ** argv) {
     // load the model
     {
         const int64_t t_start_us = ggml_time_us();
-        if (!llama_model_load(params.model, model, vocab, params.n_ctx)) {  
+        if (!llama_model_load(
+            params.model, // path to encoded weights
+            model,
+            vocab,
+            params.n_ctx
+            )) {  
             fprintf(stderr, "%s: failed to load model from '%s'\n", __func__, params.model.c_str());
             return 1;
         }

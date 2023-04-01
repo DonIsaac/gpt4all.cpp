@@ -9379,6 +9379,11 @@ void ggml_graph_compute(struct ggml_context * ctx, struct ggml_cgraph * cgraph) 
 #else
                                 cur = (GGML_TYPE_SIZE[GGML_TYPE_Q4_1]*ggml_nelements(node->src1))/GGML_BLCK_SIZE[GGML_TYPE_Q4_1];
 #endif
+                            } 
+
+                            else if (node->src0->type == GGML_TYPE_Q4_0 &&
+                                       node->src1->type == GGML_TYPE_F16) {
+                                    cur = (GGML_TYPE_SIZE[GGML_TYPE_Q4_0]*ggml_nelements(node->src1))/GGML_BLCK_SIZE[GGML_TYPE_Q4_0];
                             } else {
                                 GGML_ASSERT(false);
                             }
