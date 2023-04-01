@@ -38,6 +38,8 @@ git clone https://github.com/antimatter15/alpaca.cpp
 cd alpaca.cpp
 
 make chat
+# Alternatively, compile with debug symbols
+make chat DEBUG=1
 ./chat
 ```
 
