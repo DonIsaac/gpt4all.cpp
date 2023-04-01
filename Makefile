@@ -26,13 +26,31 @@ ifeq ($(UNAME_S),Darwin)
 	endif
 endif
 
+ifdef WASM
+	CC = emcc
+	CXX = em++
+	LLAMA_NO_ACCELERATE = 1
+endif
 #
 # Compile flags
 #
 
+ifdef DEBUG
+CFLAGS   = -I.              -g3 -std=c11   -fPIC -D_POSIX_C_SOURCE=199309L
+CXXFLAGS = -I. -I./examples -g3 -std=c++11 -fPIC -D_POSIX_C_SOURCE=199309L
+LDFLAGS  =
+
+ifdef WASM
+CFLAGS += -gsource-map --source-map-base=./ -sALLOW_MEMORY_GROWTH
+CXXFLAGS += -gsource-map --source-map-base=./ -sALLOW_MEMORY_GROWTH
+endif 
+
+else
 CFLAGS   = -I.              -O3 -DNDEBUG -std=c11   -fPIC
 CXXFLAGS = -I. -I./examples -O3 -DNDEBUG -std=c++11 -fPIC
 LDFLAGS  =
+endif
+
 
 # OS specific
 # TODO: support Windows
@@ -205,6 +223,9 @@ chat_mac: chat.cpp ggml.c utils.cpp
 quantize: quantize.cpp ggml.o utils.o
 	$(CXX) $(CXXFLAGS) quantize.cpp ggml.o utils.o -o quantize $(LDFLAGS)
 
+chat.html: chat.cpp ggml.o utils.o
+	$(CXX) $(CXXFLAGS) chat.cpp ggml.o utils.o -o chat.html --preload-file gpt4all-lora-quantized.bin $(LDFLAGS)
+# $(CXX) $(CXXFLAGS) examples/main/main.cpp ggml.o llama.o common.o -o main.html --pre-js pre.js $(LDFLAGS)
 #
 # Tests
 #

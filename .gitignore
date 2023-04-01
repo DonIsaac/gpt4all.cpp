@@ -36,3 +36,12 @@ Release/
 CMakeFiles/
 CMakeCache.txt
 *.dir/
+
+*.dSYM
+node_modules
+*.js
+!serve.js
+*.wasm
+*.wasm.map
+*.html
+*.data
