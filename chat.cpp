@@ -558,26 +558,24 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                         }
 
                         if (part_id == 0) {
+                            // number of entries in 1st (only) dim
+                            const size_t tensor_length = ne[0];
                             // load f32s into temp buf, then convert to f16,
                             // then load into tensor data
-                            // fin.read(reinterpret_cast<char *>(tensor->data),
-                            // ggml_nbytes(tensor));
-                            // ggml_tensor *tmp_tensor =
-                            // ggml_tensor_alloc(ne[0], ne[1], GGML_TYPE_F32);
-                            size_t thicc = 
-                                ggml_type_size(GGML_TYPE_F32) *
-                                ((size_t)ne[0]);
+                            const size_t thicc = 
+                                ggml_type_size(GGML_TYPE_F32) * // size of each number in data in file
+                                tensor_length;
+                            const size_t smol = ggml_type_size(GGML_TYPE_F16) *
+                                tensor_length;
 
-                            void *tmp_tensor = malloc(thicc);
+                            float *tmp_tensor = (float *)malloc(thicc);
+                            ggml_fp16_t *smaller_tmp = (ggml_fp16_t *)malloc(smol); // 32 -> 16
                             fin.read(reinterpret_cast<char *>(tmp_tensor), thicc);
-                            float *smaller_tmp = (float *)malloc(thicc >> 1); // 32 -> 16
 
-                            for (size_t i = 0; i < thicc; i++) {
-                                size_t j = i * 4; // byte index in byte[] to -> indexing f32[]
-                                float f32 = ((float *)tmp_tensor)[j];
-                                ((ggml_fp16_t *)smaller_tmp)[i] = ggml_fp32_to_fp16(f32);
+                            for (size_t i = 0; i < tensor_length; i++) {
+                                smaller_tmp[i] = ggml_fp32_to_fp16(tmp_tensor[i]);
                             }
-                            memcpy(tensor->data, smaller_tmp, thicc >> 1);
+                            memcpy(tensor->data, smaller_tmp, smol);
                             free(tmp_tensor);
                             free(smaller_tmp);
                             // into tmp, read file

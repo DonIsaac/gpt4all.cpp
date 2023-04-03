@@ -2036,17 +2036,17 @@ static const int GGML_BLCK_SIZE[GGML_TYPE_COUNT] = {
 static_assert(GGML_TYPE_COUNT == 7, "GGML_TYPE_COUNT != 5");
 
 static const size_t GGML_TYPE_SIZE[GGML_TYPE_COUNT] = {
-    sizeof(float  )   + QK/2,
-    sizeof(float  )*2 + QK/2,
-    sizeof(int8_t ),
-    sizeof(int16_t),
-    sizeof(int32_t),
-    sizeof(ggml_fp16_t),
-    sizeof(float  ),
+    sizeof(float  )   + QK/2, /* Q4_0 */
+    sizeof(float  )*2 + QK/2, /* Q4_1 */
+    sizeof(int8_t ),          /* I8   */
+    sizeof(int16_t),          /* I16  */
+    sizeof(int32_t),          /* I32  */
+    sizeof(ggml_fp16_t),      /* F16  */
+    sizeof(float  ),          /* F32  */
 };
 
 // don't forget to update the array above when adding new types
-static_assert(GGML_TYPE_COUNT == 7, "GGML_TYPE_COUNT != 5");
+static_assert(GGML_TYPE_COUNT == 7, "GGML_TYPE_COUNT != 7");
 
 static const char * GGML_OP_LABEL[GGML_OP_COUNT] = {
     "NONE",
