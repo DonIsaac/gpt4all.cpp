@@ -18,9 +18,14 @@ build-sanitize-thread/
 
 models/*
 *.bin
+*.bin.*
 
+# Compiled output
 /main
 /quantize
+
+# Compiled tests
+test/test_utils
 
 arm_neon.h
 compile_commands.json

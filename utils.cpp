@@ -137,23 +137,13 @@ void replace(std::string & str, const std::string & needle, const std::string & 
     }
 }
 
-std::map<std::string, int32_t> json_parse(const std::string & fname) {
+std::map<std::string, int32_t> json_parse(const std::string & json) {
     std::map<std::string, int32_t> result;
 
-    // read file into string
-    std::string json;
-    {
-        std::ifstream ifs(fname);
-        if (!ifs) {
-            fprintf(stderr, "Failed to open %s\n", fname.c_str());
-            exit(1);
-        }
-
-        json = std::string((std::istreambuf_iterator<char>(ifs)),
-                (std::istreambuf_iterator<char>()));
-    }
-
-    if (json[0] != '{') {
+    if (json[0] == '[') {
+        fprintf(stderr, "Error: json_parse does not support arrays yet.\n");
+        return result;
+    } else if (json[0] != '{') {
         return result;
     }
 
@@ -226,6 +216,22 @@ std::map<std::string, int32_t> json_parse(const std::string & fname) {
     }
 
     return result;
+}
+
+std::map<std::string, int32_t> json_parsef(const std::string & fname) {
+    std::string json;
+    {
+        std::ifstream ifs(fname);
+        if (!ifs) {
+            fprintf(stderr, "Failed to open %s\n", fname.c_str());
+            exit(1);
+        }
+
+        json = std::string((std::istreambuf_iterator<char>(ifs)),
+                (std::istreambuf_iterator<char>()));
+    }
+
+    return json_parse(json);
 }
 
 std::vector<gpt_vocab::id> gpt_tokenize(const gpt_vocab & vocab, const std::string & text) {

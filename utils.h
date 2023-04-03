@@ -74,8 +74,21 @@ struct gpt_vocab
 
 void replace(std::string &str, const std::string &needle, const std::string &replacement);
 
-// poor-man's JSON parsing
-std::map<std::string, int32_t> json_parse(const std::string &fname);
+/**
+ * @brief Poor man's JSON parsing
+ * 
+ * @param fname name of the file to parse
+ * @return std::map<std::string, int32_t> map of key-value pairs
+ */
+std::map<std::string, int32_t> json_parsef(const std::string &fname);
+/** 
+ * @brief Poor man's JSON parsing
+ * 
+ * @param json the JSON string to parse
+ * 
+ * @return std::map<std::string, int32_t> map of key-value pairs
+ */
+std::map<std::string, int32_t> json_parse(const std::string &json);
 
 // split text into tokens
 //

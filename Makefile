@@ -232,6 +232,10 @@ chat.html: chat.cpp ggml.o utils.o
 # Tests
 #
 
-.PHONY: tests
-tests:
-	bash ./tests/run-tests.sh
+.PHONY: test
+TEST_TARGETS = $(addprefix test/, test_utils)
+
+test: $(TEST_TARGETS)
+	bash ./test/run-tests.sh
+
+test/test_utils: test/test_utils.cpp utils.o
