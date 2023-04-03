@@ -1208,7 +1208,15 @@ inline static void ggml_vec_set_i16(const int n, int16_t * x, const int16_t v) {
 
 inline static void ggml_vec_set_i32(const int n, int32_t * x, const int32_t v) { for (int i = 0; i < n; ++i) x[i] = v; }
 
-inline static void ggml_vec_set_f16(const int n, ggml_fp16_t * x, const int32_t v) { for (int i = 0; i < n; ++i) x[i] = v; }
+// inline static void ggml_vec_add_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i] + y[i]; }
+// inline static void ggml_vec_acc_f32 (const int n, float * y, const float * x)                  { for (int i = 0; i < n; ++i) y[i] += x[i];        }
+// inline static void ggml_vec_acc1_f32(const int n, float * y, const float   v)                  { for (int i = 0; i < n; ++i) y[i] += v;           }
+// inline static void ggml_vec_sub_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i] - y[i]; }
+inline static void ggml_vec_set_f16 (const int n, ggml_fp16_t * x, const int32_t v)               { for (int i = 0; i < n; ++i) x[i] = v;            }
+inline static void ggml_vec_cpy_f16 (const int n, ggml_fp16_t * y, const ggml_fp16_t * x)         { for (int i = 0; i < n; ++i) y[i]  = x[i];        }
+// inline static void ggml_vec_neg_f32 (const int n, float * y, const float * x)                  { for (int i = 0; i < n; ++i) y[i]  = -x[i];       }
+// inline static void ggml_vec_mul_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i]*y[i];   }
+// inline static void ggml_vec_div_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i]/y[i];   }
 
 inline static void ggml_vec_add_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i] + y[i]; }
 inline static void ggml_vec_acc_f32 (const int n, float * y, const float * x)                  { for (int i = 0; i < n; ++i) y[i] += x[i];        }
@@ -4962,6 +4970,46 @@ static void ggml_compute_forward_repeat_f32(
     }
 }
 
+static void ggml_compute_forward_repeat_f16(
+        const struct ggml_compute_params * params,
+        const struct ggml_tensor * src0,
+        struct ggml_tensor * dst) {
+    assert(src0->type == GGML_TYPE_F16);
+    assert(params->ith == 0);
+    assert(ggml_can_repeat(src0, dst));
+
+    if (params->type == GGML_TASK_INIT || params->type == GGML_TASK_FINALIZE) {
+        return;
+    }
+
+    // TODO: implement support for rank > 2 tensors
+    assert(src0->ne[2] == 1);
+    assert(src0->ne[3] == 1);
+    assert( dst->ne[2] == 1);
+    assert( dst->ne[3] == 1);
+
+    const int nc  = dst->ne[0];
+    const int nr  = dst->ne[1];
+    const int nc0 = src0->ne[0];
+    const int nr0 = src0->ne[1];
+    const int ncr = nc/nc0; // guaranteed to be an integer due to the check in ggml_can_repeat
+    const int nrr = nr/nr0; // guaranteed to be an integer due to the check in ggml_can_repeat
+
+    // TODO: support for transposed / permuted tensors
+    assert( dst->nb[0] == sizeof(ggml_fp16_t));
+    assert(src0->nb[0] == sizeof(ggml_fp16_t));
+
+    // TODO: maybe this is not optimal?
+    for (int i = 0; i < nrr; i++) {
+        for (int j = 0; j < ncr; j++) {
+            for (int k = 0; k < nr0; k++) {
+                ggml_vec_cpy_f16(nc0,
+                        (ggml_fp16_t *) ((char *)  dst->data + (i*nr0 + k)*( dst->nb[1]) + j*nc0*( dst->nb[0])),
+                        (ggml_fp16_t *) ((char *) src0->data + (        k)*(src0->nb[1])));
+            }
+        }
+    }
+}
 static void ggml_compute_forward_repeat(
         const struct ggml_compute_params * params,
         const struct ggml_tensor * src0,
@@ -4971,12 +5019,15 @@ static void ggml_compute_forward_repeat(
             {
                 ggml_compute_forward_repeat_f32(params, src0, dst);
             } break;
+        case GGML_TYPE_F16:
+            {
+                ggml_compute_forward_repeat_f16(params, src0, dst);
+            } break;
         case GGML_TYPE_Q4_0:
         case GGML_TYPE_Q4_1:
         case GGML_TYPE_I8:
         case GGML_TYPE_I16:
         case GGML_TYPE_I32:
-        case GGML_TYPE_F16:
         case GGML_TYPE_COUNT:
             {
                 GGML_ASSERT(false);
