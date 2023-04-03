@@ -1215,7 +1215,11 @@ inline static void ggml_vec_set_i32(const int n, int32_t * x, const int32_t v) {
 inline static void ggml_vec_set_f16 (const int n, ggml_fp16_t * x, const int32_t v)               { for (int i = 0; i < n; ++i) x[i] = v;            }
 inline static void ggml_vec_cpy_f16 (const int n, ggml_fp16_t * y, const ggml_fp16_t * x)         { for (int i = 0; i < n; ++i) y[i]  = x[i];        }
 // inline static void ggml_vec_neg_f32 (const int n, float * y, const float * x)                  { for (int i = 0; i < n; ++i) y[i]  = -x[i];       }
-// inline static void ggml_vec_mul_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i]*y[i];   }
+inline static void ggml_vec_mul_f16 (const int n, ggml_fp16_t * z, const ggml_fp16_t * x, const ggml_fp16_t * y) {
+    for (int i = 0; i < n; ++i) z[i] = GGML_FP32_TO_FP16(
+        GGML_FP16_TO_FP32(x[i]) *
+        GGML_FP16_TO_FP32(y[i]));
+    }
 // inline static void ggml_vec_div_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i]/y[i];   }
 
 inline static void ggml_vec_add_f32 (const int n, float * z, const float * x, const float * y) { for (int i = 0; i < n; ++i) z[i]  = x[i] + y[i]; }
@@ -4622,6 +4626,33 @@ static void ggml_compute_forward_mul_f32(
     }
 }
 
+static void ggml_compute_forward_mul_f16(
+        const struct ggml_compute_params * params,
+        const struct ggml_tensor * src0,
+        const struct ggml_tensor * src1,
+        struct ggml_tensor * dst) {
+    assert(params->ith == 0);
+    assert(ggml_are_same_shape(src0, src1) && ggml_are_same_shape(src0, dst));
+
+    if (params->type == GGML_TASK_INIT || params->type == GGML_TASK_FINALIZE) {
+        return;
+    }
+
+    const int n  = ggml_nrows(src0);
+    const int nc = src0->ne[0];
+
+    assert( dst->nb[0] == sizeof(ggml_fp16_t));
+    assert(src0->nb[0] == sizeof(ggml_fp16_t));
+    assert(src1->nb[0] == sizeof(ggml_fp16_t));
+
+    for (int i = 0; i < n; i++) {
+        ggml_vec_mul_f16(nc,
+                (ggml_fp16_t *) ((char *) dst->data  + i*( dst->nb[1])),
+                (ggml_fp16_t *) ((char *) src0->data + i*(src0->nb[1])),
+                (ggml_fp16_t *) ((char *) src1->data + i*(src1->nb[1])));
+    }
+}
+
 static void ggml_compute_forward_mul(
         const struct ggml_compute_params * params,
         const struct ggml_tensor * src0,
@@ -4632,12 +4663,15 @@ static void ggml_compute_forward_mul(
             {
                 ggml_compute_forward_mul_f32(params, src0, src1, dst);
             } break;
+        case GGML_TYPE_F16:
+            {
+                ggml_compute_forward_mul_f16(params, src0, src1, dst);
+            } break;
         case GGML_TYPE_Q4_0:
         case GGML_TYPE_Q4_1:
         case GGML_TYPE_I8:
         case GGML_TYPE_I16:
         case GGML_TYPE_I32:
-        case GGML_TYPE_F16:
         case GGML_TYPE_COUNT:
             {
                 GGML_ASSERT(false);
