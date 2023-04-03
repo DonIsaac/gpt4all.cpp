@@ -28,6 +28,9 @@
 #define ANSI_COLOR_RESET   "\x1b[0m"
 #define ANSI_BOLD          "\x1b[1m"
 
+// TODO: f16 operations are mostly not supported by ggml. To use these, we
+// need to implement a lot of atomic operations. This is in progress. Enable
+// this flag to see what's missing
 // #define ENABLE_NORM_F16_HACK 1
 
 // determine number of model parts based on the dimension
