@@ -488,33 +488,33 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
                 if (n_dims == 1) {
                     if (ggml_nelements(tensor) != nelements) {
-                        fprintf(stderr, "%s: tensor '%s' has wrong size in model file\n", __func__, name.data());
+                        fprintf(stderr, "[%s:%d] tensor '%s' has wrong size in model file\n", __func__, __LINE__, name.data());
                         return false;
                     }
                 } else {
                     if (ggml_nelements(tensor)/n_parts != nelements) {
-                        fprintf(stderr, "%s: tensor '%s' has wrong size in model file\n", __func__, name.data());
+                        fprintf(stderr, "[%s:%d] tensor '%s' has wrong size in model file\n", __func__, __LINE__, name.data());
                         return false;
                     }
                 }
 
                 if (n_dims == 1) {
                     if (tensor->ne[0] != ne[0] || tensor->ne[1] != ne[1]) {
-                        fprintf(stderr, "%s: tensor '%s' has wrong shape in model file: got [%d, %d], expected [%d, %d]\n",
-                                __func__, name.data(), tensor->ne[0], tensor->ne[1], ne[0], ne[1]);
+                        fprintf(stderr, "[%s:%d] tensor '%s' has wrong shape in model file: got [%d, %d], expected [%d, %d]\n",
+                                __func__, __LINE__, name.data(), tensor->ne[0], tensor->ne[1], ne[0], ne[1]);
                         return false;
                     }
                 } else {
                     if (split_type == 0) {
                         if (tensor->ne[0]/n_parts != ne[0] || tensor->ne[1] != ne[1]) {
-                            fprintf(stderr, "%s: tensor '%s' has wrong shape in model file: got [%d, %d], expected [%d, %d]\n",
-                                    __func__, name.data(), tensor->ne[0]/n_parts, tensor->ne[1], ne[0], ne[1]);
+                            fprintf(stderr, "[%s:%d] tensor '%s' has wrong shape in model file: got [%d, %d], expected [%d, %d]\n",
+                                    __func__, __LINE__, name.data(), tensor->ne[0]/n_parts, tensor->ne[1], ne[0], ne[1]);
                             return false;
                         }
                     } else {
                         if (tensor->ne[0] != ne[0] || tensor->ne[1]/n_parts != ne[1]) {
-                            fprintf(stderr, "%s: tensor '%s' has wrong shape in model file: got [%d, %d], expected [%d, %d]\n",
-                                    __func__, name.data(), tensor->ne[0], tensor->ne[1]/n_parts, ne[0], ne[1]);
+                            fprintf(stderr, "[%s:%d] tensor '%s' has wrong shape in model file: got [%d, %d], expected [%d, %d]\n",
+                                    __func__, __LINE__, name.data(), tensor->ne[0], tensor->ne[1]/n_parts, ne[0], ne[1]);
                             return false;
                         }
                     }
@@ -527,7 +527,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                 }
 
                 size_t bpe = 0;
-                #ifdef ENABLE_F16_NORM_LAYER_HACK
+                #ifdef ENABLE_NORM_F16_HACK
                 bool is_f16_norm_layer_hack = name.find("norm") && ftype == 0;
                 #else
                 bool is_f16_norm_layer_hack = false;
@@ -547,13 +547,13 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
                 if (n_dims == 1 || n_parts == 1) {
                     if (is_f16_norm_layer_hack) {
-                        #ifndef ENABLE_F16_NORM_LAYER_HACK
-                        fprintf(stderr, "%s: f16 norm layer hack is disabled, invalid state while loading %s\n", __func__, name.c_str());
+                        #ifndef ENABLE_NORM_F16_HACK
+                        fprintf(stderr, "[%s:%d] f16 norm layer hack is disabled, invalid state while loading %s\n", __func__, __LINE__, name.c_str());
                         return false;
                         #endif
                         if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor) * 2) {
-                            fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
-                                    __func__, name.data(), ggml_nbytes(tensor), nelements*bpe);
+                            fprintf(stderr, "[%s:%d] tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
+                                    __func__, __LINE__, name.data(), ggml_nbytes(tensor), nelements*bpe);
                             return false;
                         }
 
@@ -592,8 +592,8 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                     } else {
 
                         if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor)) {
-                            fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
-                                    __func__, name.data(), ggml_nbytes(tensor), nelements*bpe);
+                            fprintf(stderr, "[%s:%d] tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
+                                    __func__, __LINE__, name.data(), ggml_nbytes(tensor), nelements*bpe);
                             return false;
                         }
 
@@ -607,8 +607,8 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
                     }
                 } else {
                     if ((nelements*bpe)/ggml_blck_size(tensor->type) != ggml_nbytes(tensor)/n_parts) {
-                        fprintf(stderr, "%s: tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
-                                __func__, name.data(), ggml_nbytes(tensor)/n_parts, nelements*bpe);
+                        fprintf(stderr, "[%s:%d] tensor '%s' has wrong size in model file: got %zu, expected %zu\n",
+                                __func__, __LINE__, name.data(), ggml_nbytes(tensor)/n_parts, nelements*bpe);
                         return false;
                     }
 
@@ -964,7 +964,7 @@ int main(int argc, char ** argv) {
             vocab,
             params.n_ctx
             )) {  
-            fprintf(stderr, "%s: failed to load model from '%s'\n", __func__, params.model.c_str());
+            fprintf(stderr, "[%s:%d] failed to load model from '%s'\n", __func__, __LINE__, params.model.c_str());
             return 1;
         }
 
