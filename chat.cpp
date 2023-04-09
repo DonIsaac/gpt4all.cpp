@@ -233,7 +233,11 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
         ctx_size += n_embd*n_vocab*ggml_type_sizef(wtype); // tok_embeddings
 
+        #ifdef ENABLE_NORM_F16_HACK
+        ctx_size += n_embd*ggml_type_sizef(GGML_TYPE_F16); // norm
+        #else
         ctx_size += n_embd*ggml_type_sizef(GGML_TYPE_F32); // norm
+        #endif
 
         ctx_size += n_embd*n_vocab*ggml_type_sizef(wtype); // output
 
@@ -313,7 +317,11 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
         model.tok_embeddings = ggml_new_tensor_2d(ctx, wtype, n_embd, n_vocab);
 
+        #ifdef ENABLE_NORM_F16_HACK
+        model.norm   = ggml_new_tensor_1d(ctx, GGML_TYPE_F16, n_embd);
+        #else
         model.norm   = ggml_new_tensor_1d(ctx, GGML_TYPE_F32, n_embd);
+        #endif
         model.output = ggml_new_tensor_2d(ctx, wtype,         n_embd, n_vocab);
 
         // map by name
@@ -531,7 +539,7 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
 
                 size_t bpe = 0;
                 #ifdef ENABLE_NORM_F16_HACK
-                bool is_f16_norm_layer_hack = name.find("norm") && ftype == 0;
+                bool is_f16_norm_layer_hack = name.find("norm") != std::string::npos && ftype == 0;
                 #else
                 bool is_f16_norm_layer_hack = false;
                 #endif

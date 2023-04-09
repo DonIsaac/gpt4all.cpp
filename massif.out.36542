@@ -1,0 +1,759 @@
+desc: (none)
+cmd: ./chat
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=4990085
+mem_heap_B=1159739
+mem_heap_extra_B=6477
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=11810499
+mem_heap_B=1296546
+mem_heap_extra_B=36902
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=16471676
+mem_heap_B=1385250
+mem_heap_extra_B=56614
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=22429745
+mem_heap_B=1496346
+mem_heap_extra_B=81302
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=26967171
+mem_heap_B=1579770
+mem_heap_extra_B=99862
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=33149794
+mem_heap_B=1691514
+mem_heap_extra_B=124694
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=41524738
+mem_heap_B=1840554
+mem_heap_extra_B=157814
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=48619096
+mem_heap_B=1965906
+mem_heap_extra_B=185670
+mem_stacks_B=0
+heap_tree=detailed
+n5: 1965906 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 417312 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 417312 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n1: 417312 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 417312 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 417312 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 417312 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 417312 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 417312 0x11487A: main (chat.cpp:970)
+ n1: 417312 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 417312 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n1: 417312 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 417312 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 417312 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 417312 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 417312 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 417312 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 10002 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=9
+#-----------
+time=54624245
+mem_heap_B=2070954
+mem_heap_extra_B=209014
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=61172987
+mem_heap_B=2184618
+mem_heap_extra_B=234294
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=66086237
+mem_heap_B=2269626
+mem_heap_extra_B=253206
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=73734999
+mem_heap_B=2400666
+mem_heap_extra_B=282326
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=77818252
+mem_heap_B=2470122
+mem_heap_extra_B=297782
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=83516290
+mem_heap_B=2567034
+mem_heap_extra_B=319318
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=87312240
+mem_heap_B=2631402
+mem_heap_extra_B=333622
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=95859184
+mem_heap_B=2776247
+mem_heap_extra_B=365825
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=102503523
+mem_heap_B=2888765
+mem_heap_extra_B=390907
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=109154657
+mem_heap_B=2999909
+mem_heap_extra_B=415627
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=114849456
+mem_heap_B=3094951
+mem_heap_extra_B=436809
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=123392575
+mem_heap_B=3237371
+mem_heap_extra_B=468517
+mem_stacks_B=0
+heap_tree=detailed
+n5: 3237371 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1052712 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1052712 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1052712 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 1052712 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1052712 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1052712 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 1052712 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 1052712 0x11487A: main (chat.cpp:970)
+ n1: 1052640 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1052640 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1052640 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 1052640 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1052640 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1052640 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 1052640 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 1052640 0x11487A: main (chat.cpp:970)
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 10739 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=21
+#-----------
+time=128301566
+mem_heap_B=3318972
+mem_heap_extra_B=486692
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=133214070
+mem_heap_B=3400724
+mem_heap_extra_B=504892
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=138126810
+mem_heap_B=3482286
+mem_heap_extra_B=523090
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=143042540
+mem_heap_B=3562928
+mem_heap_extra_B=541072
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=151229574
+mem_heap_B=3697022
+mem_heap_extra_B=570906
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=157776974
+mem_heap_B=3804201
+mem_heap_extra_B=594807
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=161055561
+mem_heap_B=3857676
+mem_heap_extra_B=606708
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=167609096
+mem_heap_B=3964600
+mem_heap_extra_B=630528
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=172524453
+mem_heap_B=4044816
+mem_heap_extra_B=648408
+mem_stacks_B=0
+heap_tree=detailed
+n5: 4044816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1455768 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1455768 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1455768 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 1455768 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1455768 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1455768 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 1455768 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 1455768 0x11487A: main (chat.cpp:970)
+ n1: 1455768 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1455768 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1455768 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 1455768 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1455768 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1455768 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 1455768 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 1455768 0x11487A: main (chat.cpp:970)
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 12000 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=30
+#-----------
+time=180713872
+mem_heap_B=4178414
+mem_heap_extra_B=678250
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=188897727
+mem_heap_B=4311734
+mem_heap_extra_B=708082
+mem_stacks_B=0
+heap_tree=detailed
+n5: 4311734 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1588752 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1588752 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1588752 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 1588752 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1588752 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1588752 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 1588752 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 1588752 0x11487A: main (chat.cpp:970)
+ n1: 1588752 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1588752 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1588752 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 1588752 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1588752 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1588752 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 1588752 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 1588752 0x11487A: main (chat.cpp:970)
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 12950 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=32
+#-----------
+time=193812068
+mem_heap_B=4391535
+mem_heap_extra_B=725857
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=201997928
+mem_heap_B=4524512
+mem_heap_extra_B=755472
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=206913356
+mem_heap_B=4604244
+mem_heap_extra_B=773228
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=213477933
+mem_heap_B=4710284
+mem_heap_extra_B=796868
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=216764083
+mem_heap_B=4763067
+mem_heap_extra_B=808653
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=223333692
+mem_heap_B=4868388
+mem_heap_extra_B=832132
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=229903336
+mem_heap_B=4973630
+mem_heap_extra_B=855602
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=238114386
+mem_heap_B=5105265
+mem_heap_extra_B=884959
+mem_stacks_B=0
+heap_tree=detailed
+n5: 5105265 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1984824 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1984824 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1984824 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 1984824 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1984824 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1984824 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 1984824 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 1984824 0x11487A: main (chat.cpp:970)
+ n1: 1984752 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1984752 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n1: 1984752 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 1984752 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 1984752 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 1984752 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 1984752 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 1984752 0x11487A: main (chat.cpp:970)
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 14409 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=40
+#-----------
+time=244683088
+mem_heap_B=5210152
+mem_heap_extra_B=908280
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=247970973
+mem_heap_B=5262740
+mem_heap_extra_B=920004
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=254534494
+mem_heap_B=5367842
+mem_heap_extra_B=943494
+mem_stacks_B=0
+heap_tree=detailed
+n5: 5367842 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2115792 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 2115792 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n1: 2115792 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 2115792 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 2115792 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 2115792 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 2115792 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 2115792 0x11487A: main (chat.cpp:970)
+ n1: 2115792 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 2115792 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n1: 2115792 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 2115792 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 2115792 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 2115792 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 2115792 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 2115792 0x11487A: main (chat.cpp:970)
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 14978 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=43
+#-----------
+time=259465767
+mem_heap_B=5443932
+mem_heap_extra_B=960476
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=266038116
+mem_heap_B=5549196
+mem_heap_extra_B=983868
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=272608818
+mem_heap_B=5653596
+mem_heap_extra_B=1007068
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=277878030
+mem_heap_B=5737620
+mem_heap_extra_B=1025740
+mem_stacks_B=0
+heap_tree=detailed
+n5: 5737620 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2304072 0x12122D: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 2304072 0x12012F: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+   n2: 2304072 0x11E652: std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_get_node() (stl_tree.h:561)
+    n1: 2304000 0x11B78E: std::_Rb_tree_node<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 2304000 0x118A94: std::_Rb_tree_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > std::_Rb_tree<int, std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<int const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::piecewise_construct_t const&, std::tuple<int const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 2304000 0x116FC7: std::map<int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<int>, std::allocator<std::pair<int const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::operator[](int const&) (stl_map.h:501)
+       n1: 2304000 0x10FC16: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:193)
+        n0: 2304000 0x11487A: main (chat.cpp:970)
+    n0: 72 in 1 place, below massif's threshold (1.00%)
+ n1: 2297088 0x121039: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 2297088 0x11FF49: std::allocator_traits<std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > > >::allocate(std::allocator<std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >&, unsigned long) (alloc_traits.h:464)
+   n2: 2297088 0x11E01A: std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_get_node() (stl_tree.h:561)
+    n1: 2297016 0x11B0BE: std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >* std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:611)
+     n1: 2297016 0x11884C: std::_Rb_tree_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int>, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> >, std::piecewise_construct_t const&, std::tuple<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>&&, std::tuple<>&&) (stl_tree.h:2431)
+      n1: 2297016 0x116EA7: std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, int> > >::operator[](std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_map.h:501)
+       n1: 2297016 0x10FBF1: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:192)
+        n0: 2297016 0x11487A: main (chat.cpp:970)
+    n0: 72 in 1 place, below massif's threshold (1.00%)
+ n1: 1048576 0x11EAD4: __gnu_cxx::new_allocator<char>::allocate(unsigned long, void const*) (new_allocator.h:127)
+  n1: 1048576 0x11BD51: std::allocator_traits<std::allocator<char> >::allocate(std::allocator<char>&, unsigned long) (alloc_traits.h:464)
+   n1: 1048576 0x11DD75: std::_Vector_base<char, std::allocator<char> >::_M_allocate(unsigned long) (stl_vector.h:346)
+    n1: 1048576 0x11ADA4: std::_Vector_base<char, std::allocator<char> >::_M_create_storage(unsigned long) (stl_vector.h:361)
+     n1: 1048576 0x1184BE: std::_Vector_base<char, std::allocator<char> >::_Vector_base(unsigned long, std::allocator<char> const&) (stl_vector.h:305)
+      n1: 1048576 0x116C10: std::vector<char, std::allocator<char> >::vector(unsigned long, std::allocator<char> const&) (stl_vector.h:511)
+       n1: 1048576 0x10F57C: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:98)
+        n0: 1048576 0x11487A: main (chat.cpp:970)
+ n1: 72704 0x4912979: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+  n1: 72704 0x400647D: call_init.part.0 (dl-init.c:70)
+   n1: 72704 0x4006567: call_init (dl-init.c:33)
+    n1: 72704 0x4006567: _dl_init (dl-init.c:117)
+     n0: 72704 0x40202E9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n0: 15180 in 8 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=47
+#-----------
+time=298014145
+mem_heap_B=12727795317
+mem_heap_extra_B=1029259
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=299346338
+mem_heap_B=12727827707
+mem_heap_extra_B=1037405
+mem_stacks_B=0
+heap_tree=detailed
+n2: 12727827707 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 12722057728 0x1296BA: ggml_init (ggml.c:2453)
+  n1: 12722057728 0x110A78: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:299)
+   n0: 12722057728 0x11487A: main (chat.cpp:970)
+ n0: 5769979 in 14 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=49
+#-----------
+time=304272210
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=305606116
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=306940016
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=308278205
+mem_heap_B=12726771706
+mem_heap_extra_B=1037470
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=309612332
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=310945077
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=312277291
+mem_heap_B=12726771721
+mem_heap_extra_B=1037455
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=313612221
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=detailed
+n2: 12726771689 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 12722057728 0x1296BA: ggml_init (ggml.c:2453)
+  n1: 12722057728 0x110A78: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:299)
+   n0: 12722057728 0x11487A: main (chat.cpp:970)
+ n0: 4713961 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=57
+#-----------
+time=314961688
+mem_heap_B=12726771706
+mem_heap_extra_B=1037470
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=316296052
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=317631088
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=318964493
+mem_heap_B=12726771689
+mem_heap_extra_B=1037447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=320299963
+mem_heap_B=12726771706
+mem_heap_extra_B=1037470
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=321690168
+mem_heap_B=12726771000
+mem_heap_extra_B=1037448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=342333025
+mem_heap_B=13263642208
+mem_heap_extra_B=1041488
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=824380549643
+mem_heap_B=13263642784
+mem_heap_extra_B=1041504
+mem_stacks_B=0
+heap_tree=peak
+n3: 13263642784 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 12722057728 0x1296BA: ggml_init (ggml.c:2453)
+  n1: 12722057728 0x110A78: llama_model_load(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, llama_model&, gpt_vocab&, int) (chat.cpp:299)
+   n0: 12722057728 0x11487A: main (chat.cpp:970)
+ n1: 536870912 0x112F8D: llama_eval(llama_model const&, int, int, std::vector<int, std::allocator<int> > const&, std::vector<float, std::allocator<float> >&, unsigned long&) (chat.cpp:700)
+  n0: 536870912 0x114E91: main (chat.cpp:1065)
+ n0: 4714144 in 17 places, all below massif's threshold (1.00%)
